@@ -7,7 +7,6 @@ public final class WorkCalendarContract {
 
     public static class ContractEntry implements BaseColumns {
         public static final String TABLE_NAME = "contract";
-
         public static final String COLUMN_NAME_INITIAL_DATE = "initialDate";   // yyyy-MM-dd
         public static final String COLUMN_NAME_END_DATE = "endDate";           // yyyy-MM-dd
         public static final String COLUMN_NAME_START_TIME = "startTime";       // HH:mm

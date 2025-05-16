@@ -56,6 +56,7 @@ public class ContractRepository {
         List<Contract> contracts = new ArrayList<>();
 
         String query = "SELECT " +
+                WorkCalendarContract.ContractEntry._ID + ", " +
                 WorkCalendarContract.ContractEntry.COLUMN_NAME_INITIAL_DATE + ", " +
                 WorkCalendarContract.ContractEntry.COLUMN_NAME_END_DATE + ", " +
                 WorkCalendarContract.ContractEntry.COLUMN_NAME_START_TIME + ", " +
@@ -69,14 +70,15 @@ public class ContractRepository {
         Cursor cursor = db.rawQuery(query, new String[]{endDate,startDate});
 
         while (cursor.moveToNext()) {
-            String initialDate = cursor.getString(0);
-            String endDateDb = cursor.getString(1);
-            String startTime = cursor.getString(2);
-            String endTime = cursor.getString(3);
-            String serviceName = cursor.getString(4);
-            String description = cursor.getString(5);
+            int id = cursor.getInt(0);
+            String initialDate = cursor.getString(1);
+            String endDateDb = cursor.getString(2);
+            String startTime = cursor.getString(3);
+            String endTime = cursor.getString(4);
+            String serviceName = cursor.getString(5);
+            String description = cursor.getString(6);
 
-            contracts.add(new Contract(initialDate, endDateDb, startTime, endTime, serviceName, description));
+            contracts.add(new Contract(id,initialDate, endDateDb, startTime, endTime, serviceName, description));
         }
         cursor.close();
         db.close();

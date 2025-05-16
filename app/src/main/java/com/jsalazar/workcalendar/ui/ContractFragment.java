@@ -21,7 +21,10 @@ import com.jsalazar.workcalendar.R;
 import com.jsalazar.workcalendar.database.repository.ContractRepository;
 import com.jsalazar.workcalendar.databinding.FragmentContractBinding;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 
@@ -43,8 +46,9 @@ public class ContractFragment extends Fragment {
 
         binding.editInitialDate.setOnClickListener(v -> showDatePicker(binding.editInitialDate));
         binding.editEndDate.setOnClickListener(v -> showDatePicker(binding.editEndDate));
-        binding.editStartTime.setOnClickListener(v -> showTimePicker(binding.editStartTime));
-        binding.editEndTime.setOnClickListener(v -> showTimePicker(binding.editEndTime));
+        binding.editStartTime.setOnFocusChangeListener((v,s) -> {if(s)showTimePicker(binding.editStartTime);});
+        binding.editEndTime.setOnFocusChangeListener((v,s) -> {if(s)showTimePicker(binding.editEndTime);});
+
         setHourFields("06:00", "14:00", false);
         binding.spinnerShift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -173,6 +177,22 @@ public class ContractFragment extends Fragment {
             return false;
         } else {
             binding.endDateLayout.setError(null);
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        try {
+            Date initial = sdf.parse(binding.editInitialDate.getText().toString());
+            Date end = sdf.parse(binding.editEndDate.getText().toString());
+
+            if (initial != null && end != null && end.before(initial)) {
+                binding.endDateLayout.setError("Debe ser igual o posterior a la fecha de inicio");
+                return false;
+            } else {
+                binding.endDateLayout.setError(null);
+            }
+        } catch (ParseException e) {
+            binding.endDateLayout.setError("Formato de fecha inválido");
+            return false;
         }
 
         int shiftPosition = binding.spinnerShift.getSelectedItemPosition();

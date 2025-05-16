@@ -40,6 +40,8 @@ public class CalendarFragment extends Fragment {
     private Calendar calendar;
     private GridLayout calendarGrid;
     private TextView txtMonthYear;
+    private Contract previousContract = null;
+    private boolean usePrimaryColor = true;
 
     private List<Contract> contracts;
 
@@ -162,9 +164,6 @@ public class CalendarFragment extends Fragment {
         int colorOne = Color.parseColor("#f4d2dd");
         int colorTwo = Color.parseColor("#d4e6ef");
 
-        Contract previousContract = null;
-        boolean usePrimaryColor = true;
-
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
         int year = calendar.get(Calendar.YEAR);
@@ -237,7 +236,7 @@ public class CalendarFragment extends Fragment {
             tv.setOnClickListener(v -> {
                 if (currentSelectedDay != null) {
                     currentSelectedDay.setTypeface(null, Typeface.NORMAL);
-                    currentSelectedDay.setBackgroundResource(0);
+                    //currentSelectedDay.setBackgroundResource(0);
                 }
                 selectedDate.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
                 selectedDate.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
