@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    private MenuItem settingsMenuItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +35,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (settingsMenuItem != null) {
+                boolean isInSettings = destination.getId() == R.id.SettingFragment;
+                settingsMenuItem.setVisible(!isInSettings);
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        settingsMenuItem = menu.findItem(R.id.action_settings);
         return true;
     }
 
@@ -51,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            NavController navController = Navigation.findNavController(
+                    this,
+                    R.id.nav_host_fragment_content_main
+            );
+            navController.navigate(R.id.action_CalendarFragment_to_SettingFragment);
             return true;
         }
 

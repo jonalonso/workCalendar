@@ -1,4 +1,4 @@
-package com.jsalazar.workcalendar;
+package com.jsalazar.workcalendar.ui;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -19,18 +19,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.jsalazar.workcalendar.databinding.FragmentFirstBinding;
+import com.jsalazar.workcalendar.R;
+import com.jsalazar.workcalendar.databinding.FragmentCalendarBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
-public class FirstFragment extends Fragment {
+public class CalendarFragment extends Fragment {
 
-    private FragmentFirstBinding binding;
+    private FragmentCalendarBinding binding;
     private Calendar selectedDate;
     private Calendar calendar;
     private GridLayout calendarGrid;
@@ -58,7 +57,7 @@ public class FirstFragment extends Fragment {
 
         Date date = new Date();
         selectedDate.setTime(date);
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
@@ -72,14 +71,14 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rotateOpen = AnimationUtils.loadAnimation(this.getContext(),R.anim.rotate_open_anim);
+        rotateOpen = AnimationUtils.loadAnimation(this.getContext(), R.anim.rotate_open_anim);
         rotateClose = AnimationUtils.loadAnimation(this.getContext(),R.anim.rotate_close_anim);
         fromBottom = AnimationUtils.loadAnimation(this.getContext(),R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(this.getContext(),R.anim.to_bottom_anim);
 
 
         //binding.buttonFirst.setOnClickListener(v ->
-        //        NavHostFragment.findNavController(FirstFragment.this)
+        //        NavHostFragment.findNavController(CalendarFragment.this)
         //                .navigate(R.id.action_FirstFragment_to_SecondFragment)
         //);
 
@@ -107,11 +106,11 @@ public class FirstFragment extends Fragment {
 
         });
 
-        binding.fab1.setOnClickListener(view1 -> Toast.makeText(FirstFragment.this.getContext(),"click1",Toast.LENGTH_SHORT).show());
+        binding.fab1.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click1",Toast.LENGTH_SHORT).show());
 
-        binding.fab2.setOnClickListener(view1 -> Toast.makeText(FirstFragment.this.getContext(),"click2",Toast.LENGTH_SHORT).show());
-        binding.fab3.setOnClickListener(view1 -> Toast.makeText(FirstFragment.this.getContext(),"click3",Toast.LENGTH_SHORT).show());
-        binding.fab4.setOnClickListener(view1 -> Toast.makeText(FirstFragment.this.getContext(),"click4",Toast.LENGTH_SHORT).show());
+        binding.fab2.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click2",Toast.LENGTH_SHORT).show());
+        binding.fab3.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click3",Toast.LENGTH_SHORT).show());
+        binding.fab4.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click4",Toast.LENGTH_SHORT).show());
 
     }
 
