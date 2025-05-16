@@ -14,6 +14,11 @@
         <action
             android:id="@+id/action_CalendarFragment_to_SettingFragment"
             app:destination="@id/SettingFragment" />
+
+        <action
+            android:id="@+id/action_CalendarFragment_to_ContractFragment"
+            app:destination="@id/ContractFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/SettingFragment"
@@ -23,6 +28,17 @@
 
         <action
             android:id="@+id/action_SettingFragment_to_CalendarFragment"
+            app:destination="@id/CalendarFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContractFragment"
+        android:name="com.jsalazar.workcalendar.ui.ContractFragment"
+        android:label="@string/contract_fragment_label"
+        tools:layout="@layout/fragment_contract">
+
+        <action
+            android:id="@+id/action_ContractFragment_to_CalendarFragment"
             app:destination="@id/CalendarFragment" />
     </fragment>
 </navigation>

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:padding="24dp">
 
     <LinearLayout
@@ -12,6 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ajustes de la Aplicación"
+            android:textColor="@color/textPrimary"
             android:layout_gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -63,6 +65,7 @@
             android:id="@+id/btnSaveSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
             android:text="Guardar ajustes"
             android:layout_marginTop="24dp" />
 

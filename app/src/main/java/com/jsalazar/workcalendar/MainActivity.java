@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (settingsMenuItem != null) {
-                boolean isInSettings = destination.getId() == R.id.SettingFragment;
-                settingsMenuItem.setVisible(!isInSettings);
+                boolean needSettings = destination.getId() == R.id.CalendarFragment;
+                settingsMenuItem.setVisible(needSettings);
             }
         });
     }

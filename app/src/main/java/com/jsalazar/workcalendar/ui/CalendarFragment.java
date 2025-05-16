@@ -18,14 +18,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.jsalazar.workcalendar.R;
+import com.jsalazar.workcalendar.database.repository.ContractRepository;
 import com.jsalazar.workcalendar.databinding.FragmentCalendarBinding;
+import com.jsalazar.workcalendar.models.Contract;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class CalendarFragment extends Fragment {
 
@@ -34,6 +40,8 @@ public class CalendarFragment extends Fragment {
     private Calendar calendar;
     private GridLayout calendarGrid;
     private TextView txtMonthYear;
+
+    private List<Contract> contracts;
 
 
     private Animation rotateOpen = null;
@@ -76,28 +84,12 @@ public class CalendarFragment extends Fragment {
         fromBottom = AnimationUtils.loadAnimation(this.getContext(),R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(this.getContext(),R.anim.to_bottom_anim);
 
-
-        //binding.buttonFirst.setOnClickListener(v ->
-        //        NavHostFragment.findNavController(CalendarFragment.this)
-        //                .navigate(R.id.action_FirstFragment_to_SecondFragment)
-        //);
-
-
         binding.TextDate.setText("Eventos del día "+formatDate());
         calendarGrid = binding.calendarGrid;
         txtMonthYear = binding.txtMonthYear;
 
         setupCalendarButtons();
         renderCalendar();
-
-
-
-        //binding.mainCalendar.date((widget, calendar, selected) -> {
-            //month is 0 based
-        //    selectedDate.set(calendar.getYear(),calendar.getMonth(),calendar.getDay());
-        //    binding.TextDate.setText("Eventos del día "+formatDate());
-        //});
-
 
         binding.fab.setOnClickListener(view1 -> {
             fabSwitch = !fabSwitch;
@@ -106,23 +98,32 @@ public class CalendarFragment extends Fragment {
 
         });
 
-        binding.fab1.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click1",Toast.LENGTH_SHORT).show());
+        binding.ContractFab.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(CalendarFragment.this)
+            .navigate(R.id.action_CalendarFragment_to_ContractFragment);
+            fabSwitch = false;
+        });
 
         binding.fab2.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click2",Toast.LENGTH_SHORT).show());
         binding.fab3.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click3",Toast.LENGTH_SHORT).show());
         binding.fab4.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click4",Toast.LENGTH_SHORT).show());
 
+
+        getParentFragmentManager().setFragmentResultListener("contract_added", this, (requestKey, result) -> {
+            renderCalendar();
+            Toast.makeText(getContext(), "Contrato agregado, refrescando calendario", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void startAnimation() {
         if(!fabSwitch){
-            binding.fab1.startAnimation(toBottom);
+            binding.ContractFab.startAnimation(toBottom);
             binding.fab2.startAnimation(toBottom);
             binding.fab3.startAnimation(toBottom);
             binding.fab4.startAnimation(toBottom);
             binding.fab.startAnimation(rotateClose);
         }else{
-            binding.fab1.startAnimation(fromBottom);
+            binding.ContractFab.startAnimation(fromBottom);
             binding.fab2.startAnimation(fromBottom);
             binding.fab3.startAnimation(fromBottom);
             binding.fab4.startAnimation(fromBottom);
@@ -132,12 +133,12 @@ public class CalendarFragment extends Fragment {
 
     private void setVisibility() {
         if(!fabSwitch){
-            binding.fab1.setVisibility(View.INVISIBLE);
+            binding.ContractFab.setVisibility(View.INVISIBLE);
             binding.fab2.setVisibility(View.INVISIBLE);
             binding.fab3.setVisibility(View.INVISIBLE);
             binding.fab4.setVisibility(View.INVISIBLE);
         }else{
-            binding.fab1.setVisibility(View.VISIBLE);
+            binding.ContractFab.setVisibility(View.VISIBLE);
             binding.fab2.setVisibility(View.VISIBLE);
             binding.fab3.setVisibility(View.VISIBLE);
             binding.fab4.setVisibility(View.VISIBLE);
@@ -156,11 +157,20 @@ public class CalendarFragment extends Fragment {
         });
     }
 
-    private void renderCalendar() {
+    private void renderCalendar(){
+
+        int colorOne = Color.parseColor("#f4d2dd");
+        int colorTwo = Color.parseColor("#d4e6ef");
+
+        Contract previousContract = null;
+        boolean usePrimaryColor = true;
+
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
         int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1; // Domingo = 1 → 0-based
+        int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 
         txtMonthYear.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(calendar.getTime()));
 
@@ -180,9 +190,47 @@ public class CalendarFragment extends Fragment {
             calendarGrid.addView(createContainer());
         }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String startOfMonth = String.format(Locale.getDefault(), "%04d-%02d-01", year, month + 1);
+        String endOfMonth = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, maxDay);
+
+        ContractRepository repo = new ContractRepository(requireContext());
+        contracts = repo.getContractsForDateRange(startOfMonth, endOfMonth);
+
+
         for (int day = 1; day <= maxDay; day++) {
+            Contract currentContract = null;
             FrameLayout container = createContainer();
             LinearLayout container2 = createContainerTwo();
+
+            Calendar dayCal = Calendar.getInstance();
+            dayCal.set(year, month, day,0,0,0);
+            dayCal.set(Calendar.MILLISECOND, 0);
+            boolean hasEvent = false;
+            try {
+                for (Contract element : contracts) {
+                    Calendar startCal = Calendar.getInstance();
+                    Calendar endCal = Calendar.getInstance();
+                    startCal.setTime(Objects.requireNonNull(sdf.parse(element.initialDate)));
+                    endCal.setTime(Objects.requireNonNull(sdf.parse(element.endDate)));
+                    startCal.set(Calendar.HOUR_OF_DAY, 0);
+                    startCal.set(Calendar.MINUTE, 0);
+                    startCal.set(Calendar.SECOND, 0);
+                    startCal.set(Calendar.MILLISECOND, 0);
+
+                    endCal.set(Calendar.HOUR_OF_DAY, 0);
+                    endCal.set(Calendar.MINUTE, 0);
+                    endCal.set(Calendar.SECOND, 0);
+                    endCal.set(Calendar.MILLISECOND, 0);
+                    if (!dayCal.before(startCal) && !dayCal.after(endCal)) {
+                        hasEvent = true;
+                        currentContract = element;
+                        break;
+                    }
+                }
+            } catch (ParseException|NullPointerException e) {
+
+            }
 
 
             TextView tv = createBodyText(String.valueOf(day));
@@ -195,7 +243,7 @@ public class CalendarFragment extends Fragment {
                 selectedDate.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
                 selectedDate.set(Calendar.DAY_OF_MONTH, Integer.parseInt(tv.getText().toString()));
                 tv.setTypeface(null, Typeface.BOLD);
-                tv.setBackgroundResource(R.drawable.selected_day_background);
+                //tv.setBackgroundResource(R.drawable.selected_day_background);
                 currentSelectedDay = tv;
                 binding.TextDate.setText("Eventos del día " + formatDate());
             });
@@ -207,12 +255,23 @@ public class CalendarFragment extends Fragment {
             );
             params.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()); // marginBottom 4dp
             eventIndicator.setLayoutParams(params);
-            eventIndicator.setBackgroundResource(R.drawable.event_indicator_red); // Color inicial (opcional)
-            eventIndicator.setVisibility(View. VISIBLE); // Oculto por defecto
+            eventIndicator.setBackgroundResource(R.drawable.event_indicator_red);
+            eventIndicator.setVisibility(hasEvent ? View.VISIBLE : View.INVISIBLE);
 
             container2.addView(tv);
             container2.addView(eventIndicator);
             container.addView(container2);
+            if (currentContract != null) {
+                if (!currentContract.equals(previousContract)) {
+                    usePrimaryColor = !usePrimaryColor;
+                }
+                previousContract = currentContract;
+
+                int bgColor = usePrimaryColor ? colorOne : colorTwo;
+                container.setBackgroundColor(bgColor);
+            } else {
+                container.setBackgroundColor(Color.TRANSPARENT);
+            }
             calendarGrid.addView(container);
         }
     }
@@ -240,7 +299,7 @@ public class CalendarFragment extends Fragment {
 
         if (isSameDay(tempCal, selectedDate)) {
             tv.setTypeface(null, Typeface.BOLD);
-            tv.setBackgroundResource(R.drawable.selected_day_background);
+            //tv.setBackgroundResource(R.drawable.selected_day_background);
             currentSelectedDay = tv;
         }
         return tv;
