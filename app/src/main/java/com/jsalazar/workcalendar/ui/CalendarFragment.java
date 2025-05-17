@@ -52,7 +52,6 @@ public class CalendarFragment extends Fragment {
     private Animation toBottom = null;
 
     private Boolean fabSwitch = false;
-    //private Set<Calendar> eventDates = new HashSet<>();
 
     private TextView currentSelectedDay = null;
 
@@ -63,7 +62,6 @@ public class CalendarFragment extends Fragment {
     ) {
         selectedDate = Calendar.getInstance();
         calendar = Calendar.getInstance();
-        // Agregar algunas fechas con eventos
 
         Date date = new Date();
         selectedDate.setTime(date);
@@ -107,7 +105,12 @@ public class CalendarFragment extends Fragment {
         });
 
         binding.fab2.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click2",Toast.LENGTH_SHORT).show());
-        binding.fab3.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click3",Toast.LENGTH_SHORT).show());
+        binding.TimeOffFab.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(CalendarFragment.this)
+                    .navigate(R.id.action_CalendarFragment_to_TimeOffFragment);
+            fabSwitch = false;
+
+        });
         binding.fab4.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click4",Toast.LENGTH_SHORT).show());
 
 
@@ -121,13 +124,13 @@ public class CalendarFragment extends Fragment {
         if(!fabSwitch){
             binding.ContractFab.startAnimation(toBottom);
             binding.fab2.startAnimation(toBottom);
-            binding.fab3.startAnimation(toBottom);
+            binding.TimeOffFab.startAnimation(toBottom);
             binding.fab4.startAnimation(toBottom);
             binding.fab.startAnimation(rotateClose);
         }else{
             binding.ContractFab.startAnimation(fromBottom);
             binding.fab2.startAnimation(fromBottom);
-            binding.fab3.startAnimation(fromBottom);
+            binding.TimeOffFab.startAnimation(fromBottom);
             binding.fab4.startAnimation(fromBottom);
             binding.fab.startAnimation(rotateOpen);
         }
@@ -137,12 +140,12 @@ public class CalendarFragment extends Fragment {
         if(!fabSwitch){
             binding.ContractFab.setVisibility(View.INVISIBLE);
             binding.fab2.setVisibility(View.INVISIBLE);
-            binding.fab3.setVisibility(View.INVISIBLE);
+            binding.TimeOffFab.setVisibility(View.INVISIBLE);
             binding.fab4.setVisibility(View.INVISIBLE);
         }else{
             binding.ContractFab.setVisibility(View.VISIBLE);
             binding.fab2.setVisibility(View.VISIBLE);
-            binding.fab3.setVisibility(View.VISIBLE);
+            binding.TimeOffFab.setVisibility(View.VISIBLE);
             binding.fab4.setVisibility(View.VISIBLE);
         }
     }
@@ -236,13 +239,11 @@ public class CalendarFragment extends Fragment {
             tv.setOnClickListener(v -> {
                 if (currentSelectedDay != null) {
                     currentSelectedDay.setTypeface(null, Typeface.NORMAL);
-                    //currentSelectedDay.setBackgroundResource(0);
                 }
                 selectedDate.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
                 selectedDate.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
                 selectedDate.set(Calendar.DAY_OF_MONTH, Integer.parseInt(tv.getText().toString()));
                 tv.setTypeface(null, Typeface.BOLD);
-                //tv.setBackgroundResource(R.drawable.selected_day_background);
                 currentSelectedDay = tv;
                 binding.TextDate.setText("Eventos del día " + formatDate());
             });

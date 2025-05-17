@@ -42,16 +42,15 @@ public class SettingFragment extends Fragment {
         loadPreferences();
 
         binding.btnSaveSettings.setOnClickListener(v -> {
-            String wage = binding.inputHourlyWage.getText().toString();
-            String evening = binding.inputEveningBonus.getText().toString();
-            String night = binding.inputNightBonus.getText().toString();
+            String wage = String.valueOf(binding.inputHourlyWage.getText());
+            String evening = String.valueOf(binding.inputEveningBonus.getText());
+            String night = String.valueOf(binding.inputNightBonus.getText());
 
             if (TextUtils.isEmpty(wage) || TextUtils.isEmpty(evening) || TextUtils.isEmpty(night)) {
                 Toast.makeText(getContext(), "Por favor, complete los tres campos", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Guardar valores
             sharedPreferences.edit()
                     .putFloat(KEY_WAGE, Float.parseFloat(wage))
                     .putFloat(KEY_EVENING, Float.parseFloat(evening))

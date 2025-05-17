@@ -7,12 +7,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contract_fragment_label">Nombramientos</string>
+    <string name="time_off_fragment_label">Tiempo Libre</string>
 
     <string-array name="shift_options">
         <item>Mañana</item>
         <item>Tarde</item>
         <item>Noche</item>
         <item>Personalizado</item>
+    </string-array>
+
+    <string-array name="time_off_types">
+        <item>Vacaciones</item>
+        <item>Ausencias</item>
+        <item>Días libres</item>
+        <item>Incapacidad</item>
+        <item>Licencia</item>
     </string-array>
 
 </resources>

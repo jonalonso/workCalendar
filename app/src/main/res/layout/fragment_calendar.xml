@@ -90,7 +90,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginBottom="@dimen/fab_margin_small"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/fab3"
+        app:layout_constraintBottom_toTopOf="@id/TimeOffFab"
         app:shapeAppearanceOverlay="@style/fab_rounded"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white"
@@ -98,7 +98,7 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab3"
+        android:id="@+id/TimeOffFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Add event"

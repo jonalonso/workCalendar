@@ -19,6 +19,10 @@
             android:id="@+id/action_CalendarFragment_to_ContractFragment"
             app:destination="@id/ContractFragment" />
 
+        <action
+            android:id="@+id/action_CalendarFragment_to_TimeOffFragment"
+            app:destination="@id/TimeOffFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/SettingFragment"
@@ -39,6 +43,17 @@
 
         <action
             android:id="@+id/action_ContractFragment_to_CalendarFragment"
+            app:destination="@id/CalendarFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/TimeOffFragment"
+        android:name="com.jsalazar.workcalendar.ui.TimeOffFragment"
+        android:label="@string/time_off_fragment_label"
+        tools:layout="@layout/fragment_time_off">
+
+        <action
+            android:id="@+id/action_TimeOffFragment_to_CalendarFragment"
             app:destination="@id/CalendarFragment" />
     </fragment>
 </navigation>

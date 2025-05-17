@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.jsalazar.workcalendar.database.WorkCalendarDbHelper;
-import com.jsalazar.workcalendar.database.models.WorkCalendarContract;
+import com.jsalazar.workcalendar.database.models.WorkCalendarDataBaseModel;
 import com.jsalazar.workcalendar.models.Contract;
 
 import java.util.ArrayList;
@@ -23,9 +23,9 @@ public class ContractRepository {
     public boolean isDateRangeOverlapping(String newStart, String newEnd) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String query = "SELECT 1 FROM " + WorkCalendarContract.ContractEntry.TABLE_NAME +
-                " WHERE NOT (? < " + WorkCalendarContract.ContractEntry.COLUMN_NAME_INITIAL_DATE +
-                " OR ? > " + WorkCalendarContract.ContractEntry.COLUMN_NAME_END_DATE + ") LIMIT 1";
+        String query = "SELECT 1 FROM " + WorkCalendarDataBaseModel.ContractEntry.TABLE_NAME +
+                " WHERE NOT (? < " + WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_INITIAL_DATE +
+                " OR ? > " + WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_DATE + ") LIMIT 1";
 
         Cursor cursor = db.rawQuery(query, new String[]{ newEnd, newStart });
 
@@ -40,14 +40,14 @@ public class ContractRepository {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(WorkCalendarContract.ContractEntry.COLUMN_NAME_INITIAL_DATE, initialDate);
-        values.put(WorkCalendarContract.ContractEntry.COLUMN_NAME_END_DATE, endDate);
-        values.put(WorkCalendarContract.ContractEntry.COLUMN_NAME_START_TIME, startTime);
-        values.put(WorkCalendarContract.ContractEntry.COLUMN_NAME_END_TIME, endTime);
-        values.put(WorkCalendarContract.ContractEntry.COLUMN_NAME_SERVICE_NAME, serviceName);
-        values.put(WorkCalendarContract.ContractEntry.COLUMN_NAME_DESCRIPTION, description);
+        values.put(WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_INITIAL_DATE, initialDate);
+        values.put(WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_DATE, endDate);
+        values.put(WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_START_TIME, startTime);
+        values.put(WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_TIME, endTime);
+        values.put(WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_SERVICE_NAME, serviceName);
+        values.put(WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_DESCRIPTION, description);
 
-        db.insert(WorkCalendarContract.ContractEntry.TABLE_NAME, null, values);
+        db.insert(WorkCalendarDataBaseModel.ContractEntry.TABLE_NAME, null, values);
         db.close();
     }
 
@@ -56,16 +56,16 @@ public class ContractRepository {
         List<Contract> contracts = new ArrayList<>();
 
         String query = "SELECT " +
-                WorkCalendarContract.ContractEntry._ID + ", " +
-                WorkCalendarContract.ContractEntry.COLUMN_NAME_INITIAL_DATE + ", " +
-                WorkCalendarContract.ContractEntry.COLUMN_NAME_END_DATE + ", " +
-                WorkCalendarContract.ContractEntry.COLUMN_NAME_START_TIME + ", " +
-                WorkCalendarContract.ContractEntry.COLUMN_NAME_END_TIME + ", " +
-                WorkCalendarContract.ContractEntry.COLUMN_NAME_SERVICE_NAME + ", " +
-                WorkCalendarContract.ContractEntry.COLUMN_NAME_DESCRIPTION +
-                " FROM " + WorkCalendarContract.ContractEntry.TABLE_NAME +
-                " WHERE NOT (? < " + WorkCalendarContract.ContractEntry.COLUMN_NAME_INITIAL_DATE +
-                " OR ? > " + WorkCalendarContract.ContractEntry.COLUMN_NAME_END_DATE + ")";
+                WorkCalendarDataBaseModel.ContractEntry._ID + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_INITIAL_DATE + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_DATE + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_START_TIME + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_TIME + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_SERVICE_NAME + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_DESCRIPTION +
+                " FROM " + WorkCalendarDataBaseModel.ContractEntry.TABLE_NAME +
+                " WHERE NOT (? < " + WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_INITIAL_DATE +
+                " OR ? > " + WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_DATE + ")";
 
         Cursor cursor = db.rawQuery(query, new String[]{endDate,startDate});
 

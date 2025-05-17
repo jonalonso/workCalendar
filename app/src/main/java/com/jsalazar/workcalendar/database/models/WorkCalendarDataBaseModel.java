@@ -1,9 +1,9 @@
 package com.jsalazar.workcalendar.database.models;
 import android.provider.BaseColumns;
 
-public final class WorkCalendarContract {
+public final class WorkCalendarDataBaseModel {
 
-    private WorkCalendarContract() {}
+    private WorkCalendarDataBaseModel() {}
 
     public static class ContractEntry implements BaseColumns {
         public static final String TABLE_NAME = "contract";
@@ -13,5 +13,13 @@ public final class WorkCalendarContract {
         public static final String COLUMN_NAME_END_TIME = "endTime";           // HH:mm
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_SERVICE_NAME = "serviceName";   // Área del hospital
+    }
+
+    public static class TimeOffEntry implements BaseColumns {
+        public static final String TABLE_NAME = "time_off";
+        public static final String COLUMN_NAME_INITIAL_DATE = "initialDate";   // yyyy-MM-dd
+        public static final String COLUMN_NAME_END_DATE = "endDate";           // yyyy-MM-dd
+        public static final String COLUMN_NAME_TYPE = "type";                  // vacaciones, ausencias, etc.
+        public static final String COLUMN_NAME_DESCRIPTION = "description";    // opcional
     }
 }
