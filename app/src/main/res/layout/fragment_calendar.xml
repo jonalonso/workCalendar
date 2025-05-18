@@ -30,6 +30,7 @@
                 android:id="@+id/btnPrev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/prev_month"
                 android:src="@drawable/ic_left"
                 android:background="?android:selectableItemBackgroundBorderless" />
 
@@ -47,6 +48,7 @@
                 android:id="@+id/btnNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/next_month"
                 android:src="@drawable/ic_right"
                 android:background="?android:selectableItemBackgroundBorderless" />
         </LinearLayout>
@@ -82,10 +84,10 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab4"
+        android:id="@+id/OverTimefab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Add event"
+        android:contentDescription="@string/add_overtime"
         android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginBottom="@dimen/fab_margin_small"
@@ -101,22 +103,22 @@
         android:id="@+id/TimeOffFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Add event"
+        android:contentDescription="@string/add_time_off"
         android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginBottom="@dimen/fab_margin_small"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/fab2"
+        app:layout_constraintBottom_toTopOf="@id/PaymentFab"
         app:shapeAppearanceOverlay="@style/fab_rounded"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white"
         app:srcCompat="@drawable/ic_sick"  />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab2"
+        android:id="@+id/PaymentFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Add event"
+        android:contentDescription="@string/add_payment"
         android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginBottom="@dimen/fab_margin_small"
@@ -130,7 +132,7 @@
         android:id="@+id/ContractFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Add event"
+        android:contentDescription="@string/add_contract"
         android:visibility="invisible"
         android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimary"
@@ -144,7 +146,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="Add event"
+        android:contentDescription="@string/show_more_actions"
         android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginBottom="@dimen/fab_margin"

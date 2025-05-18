@@ -10,13 +10,12 @@
         android:padding="16dp"
         android:gravity="center_horizontal">
 
-        <!-- Initial Date -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/initialDateLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de inicio">
+            android:hint="@string/start_date_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editInitialDate"
@@ -26,13 +25,12 @@
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- End Date -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/endDateLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de fin"
+            android:hint="@string/end_date_hint"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -43,7 +41,6 @@
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Shift Selector -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,25 +49,23 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Turno:"
+                android:text="@string/shift_label"
                 android:textSize="16sp"
                  />
 
             <Spinner
                 android:id="@+id/spinnerShift"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/shift_options" />
         </LinearLayout>
 
-
-        <!-- Start Time -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/startTimeLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Hora de inicio"
+            android:hint="@string/start_time_hint"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -81,13 +76,12 @@
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- End Time -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/endTimeLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Hora de fin"
+            android:hint="@string/end_time_hint"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -98,13 +92,12 @@
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Service Name -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/serviceNameLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Área de servicio"
+            android:hint="@string/service_area_hint"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -113,13 +106,12 @@
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Description -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/descriptionLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descripción"
+            android:hint="@string/description_hint"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -130,13 +122,12 @@
                 android:minLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Save Button -->
         <Button
             android:id="@+id/btnSaveContract"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Guardar"
+            android:text="@string/save_button"
             android:layout_marginTop="24dp"/>
 
     </LinearLayout>

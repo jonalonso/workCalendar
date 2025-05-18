@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ajustes de la Aplicación"
+            android:text="@string/app_settings_title"
             android:textColor="@color/textPrimary"
             android:layout_gravity="center"
             android:textSize="20sp"
@@ -23,7 +23,7 @@
             android:id="@+id/layout_hourly_wage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Salario por hora"
+            android:hint="@string/hourly_wage_hint"
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -37,7 +37,7 @@
             android:id="@+id/layout_evening_bonus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Recargo por hora (Tarde)"
+            android:hint="@string/afternoon_bonus_hint"
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -51,7 +51,7 @@
             android:id="@+id/layout_night_bonus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Recargo por hora (Noche)"
+            android:hint="@string/night_bonus_hint"
             android:layout_marginTop="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Guardar ajustes"
+            android:text="@string/save_button"
             android:layout_marginTop="24dp" />
 
     </LinearLayout>

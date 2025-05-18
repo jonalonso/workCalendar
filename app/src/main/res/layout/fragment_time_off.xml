@@ -15,7 +15,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de inicio">
+            android:hint="@string/start_date_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editInitialDate"
@@ -30,7 +30,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de fin"
+            android:hint="@string/end_date_hint"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tipo de ausencia"
+                android:text="@string/time_off_type_label"
                 android:textSize="16sp"
                  />
 
@@ -67,7 +67,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descripción"
+            android:hint="@string/description_hint"
             android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Guardar"
+            android:text="@string/save_button"
             android:layout_marginTop="24dp"/>
     </LinearLayout>
 </ScrollView>

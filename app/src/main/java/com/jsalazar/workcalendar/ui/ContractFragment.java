@@ -99,7 +99,7 @@ public class ContractFragment extends Fragment {
                     requireActivity().runOnUiThread(() -> {
                                 hideSavingDialog();
                                 binding.btnSaveContract.setEnabled(true);
-                                Toast.makeText(requireContext(), "Ya existe un contrato para estas fechas.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(requireContext(), getString(R.string.contract_exists_message), Toast.LENGTH_LONG).show();
                             }
                     );
                     return;
@@ -110,7 +110,7 @@ public class ContractFragment extends Fragment {
                     hideSavingDialog();
                     Bundle result = new Bundle();
                     result.putBoolean("success", true);
-                    getParentFragmentManager().setFragmentResult("contract_added", result);
+                    getParentFragmentManager().setFragmentResult("calendar_updated", result);
                     NavHostFragment.findNavController(this).popBackStack();
 
                 });
@@ -135,14 +135,14 @@ public class ContractFragment extends Fragment {
 
     private boolean validateInputs(String initialDate, String endDate, String startTime, String endTime, String serviceName, String description) {
         if (initialDate.isEmpty()) {
-            binding.initialDateLayout.setError("Requerido");
+            binding.initialDateLayout.setError(getString(R.string.field_required_error));
             return false;
         } else {
             binding.initialDateLayout.setError(null);
         }
 
         if (endDate.isEmpty()) {
-            binding.endDateLayout.setError("Requerido");
+            binding.endDateLayout.setError(getString(R.string.field_required_error));
             return false;
         } else {
             binding.endDateLayout.setError(null);
@@ -154,27 +154,27 @@ public class ContractFragment extends Fragment {
             Date end = sdf.parse(endDate);
 
             if (initial != null && end != null && end.before(initial)) {
-                binding.endDateLayout.setError("Debe ser igual o posterior a la fecha de inicio");
+                binding.endDateLayout.setError(getString(R.string.end_date_after_start_error));
                 return false;
             } else {
                 binding.endDateLayout.setError(null);
             }
         } catch (ParseException e) {
-            binding.endDateLayout.setError("Formato de fecha inválido");
+            binding.endDateLayout.setError(getString(R.string.invalid_date_format_error));
             return false;
         }
 
         int shiftPosition = binding.spinnerShift.getSelectedItemPosition();
         if (shiftPosition == 3) {
             if (startTime.isEmpty()) {
-                binding.startTimeLayout.setError("Requerido");
+                binding.startTimeLayout.setError(getString(R.string.field_required_error));
                 return false;
             } else {
                 binding.startTimeLayout.setError(null);
             }
 
             if (endTime.isEmpty()) {
-                binding.endTimeLayout.setError("Requerido");
+                binding.endTimeLayout.setError(getString(R.string.field_required_error));
                 return false;
             } else {
                 binding.endTimeLayout.setError(null);
@@ -182,14 +182,14 @@ public class ContractFragment extends Fragment {
         }
 
         if (serviceName.isEmpty()) {
-            binding.serviceNameLayout.setError("Requerido");
+            binding.serviceNameLayout.setError(getString(R.string.field_required_error));
             return false;
         } else {
             binding.serviceNameLayout.setError(null);
         }
 
         if (description.isEmpty()) {
-            binding.descriptionLayout.setError("Requerido");
+            binding.descriptionLayout.setError(getString(R.string.field_required_error));
             return false;
         } else {
             binding.descriptionLayout.setError(null);

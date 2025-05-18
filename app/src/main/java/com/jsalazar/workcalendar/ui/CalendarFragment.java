@@ -84,7 +84,7 @@ public class CalendarFragment extends Fragment {
         fromBottom = AnimationUtils.loadAnimation(this.getContext(),R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(this.getContext(),R.anim.to_bottom_anim);
 
-        binding.TextDate.setText("Eventos del día "+formatDate());
+        binding.TextDate.setText(getString(R.string.events_of_day, formatDate()));
         calendarGrid = binding.calendarGrid;
         txtMonthYear = binding.txtMonthYear;
 
@@ -111,12 +111,12 @@ public class CalendarFragment extends Fragment {
             fabSwitch = false;
 
         });
-        binding.fab4.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click4",Toast.LENGTH_SHORT).show());
+        binding.OverTimefab.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"extras",Toast.LENGTH_SHORT).show());
 
 
-        getParentFragmentManager().setFragmentResultListener("contract_added", this, (requestKey, result) -> {
+        getParentFragmentManager().setFragmentResultListener("calendar_updated", this, (requestKey, result) -> {
             renderCalendar();
-            Toast.makeText(getContext(), "Contrato agregado, refrescando calendario", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Datos Actualizados, refrescando calendario", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -125,13 +125,13 @@ public class CalendarFragment extends Fragment {
             binding.ContractFab.startAnimation(toBottom);
             binding.fab2.startAnimation(toBottom);
             binding.TimeOffFab.startAnimation(toBottom);
-            binding.fab4.startAnimation(toBottom);
+            binding.OverTimefab.startAnimation(toBottom);
             binding.fab.startAnimation(rotateClose);
         }else{
             binding.ContractFab.startAnimation(fromBottom);
             binding.fab2.startAnimation(fromBottom);
             binding.TimeOffFab.startAnimation(fromBottom);
-            binding.fab4.startAnimation(fromBottom);
+            binding.OverTimefab.startAnimation(fromBottom);
             binding.fab.startAnimation(rotateOpen);
         }
     }
@@ -141,12 +141,12 @@ public class CalendarFragment extends Fragment {
             binding.ContractFab.setVisibility(View.INVISIBLE);
             binding.fab2.setVisibility(View.INVISIBLE);
             binding.TimeOffFab.setVisibility(View.INVISIBLE);
-            binding.fab4.setVisibility(View.INVISIBLE);
+            binding.OverTimefab.setVisibility(View.INVISIBLE);
         }else{
             binding.ContractFab.setVisibility(View.VISIBLE);
             binding.fab2.setVisibility(View.VISIBLE);
             binding.TimeOffFab.setVisibility(View.VISIBLE);
-            binding.fab4.setVisibility(View.VISIBLE);
+            binding.OverTimefab.setVisibility(View.VISIBLE);
         }
     }
 
@@ -245,7 +245,7 @@ public class CalendarFragment extends Fragment {
                 selectedDate.set(Calendar.DAY_OF_MONTH, Integer.parseInt(tv.getText().toString()));
                 tv.setTypeface(null, Typeface.BOLD);
                 currentSelectedDay = tv;
-                binding.TextDate.setText("Eventos del día " + formatDate());
+                binding.TextDate.setText(getString(R.string.events_of_day, formatDate()));
             });
 
             View eventIndicator = new View(getContext());

@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Calendario laboral</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="first_fragment_label">Calendario Laboral</string>
+    <string name="second_fragment_label">Ajustes</string>
+    <string name="contract_fragment_label">Nombramientos</string>
+    <string name="time_off_fragment_label">Tiempo Libre</string>
+    <string name="events_of_day">Eventos del día %1$s</string>
+    <string name="contract_exists_message">Ya existe un contrato para estas fechas.</string>
+    <string name="field_required_error">Requerido</string>
+    <string name="end_date_after_start_error">Debe ser igual o posterior a la fecha de inicio</string>
+    <string name="invalid_date_format_error">Formato de fecha inválido</string>
+    <string name="saving_please_wait">Guardando, por favor espere...</string>
+    <string name="prev_month">Mes anterior</string>
+    <string name="next_month">Mes siguiente</string>
+    <string name="add_overtime">Agregar tiempo extra de trabajo</string>
+    <string name="add_time_off">Agregar tiempo libre</string>
+    <string name="add_payment">Agregar pago</string>
+    <string name="add_contract">Agregar contrato</string>
+    <string name="show_more_actions">Mostrar acciones adicionales</string>
+    <string name="start_date_hint">Fecha de inicio</string>
+    <string name="end_date_hint">Fecha de fin</string>
+    <string name="shift_label">Turno:</string>
+    <string name="start_time_hint">Hora de inicio</string>
+    <string name="end_time_hint">Hora de fin</string>
+    <string name="service_area_hint">Área de servicio</string>
+    <string name="description_hint">Descripción</string>
+    <string name="save_button">Guardar</string>
+    <string name="time_off_type_label">Tipo de tiempo libre</string>
+    <string name="hourly_wage_hint">Salario por hora</string>
+    <string name="app_settings_title">Ajustes de la Aplicación</string>
+    <string name="afternoon_bonus_hint">Recargo por hora (Tarde)</string>
+    <string name="night_bonus_hint">Recargo por hora (Noche)</string>
+
+
+
+
+
+
+
+
+    <string-array name="shift_options">
+        <item>Mañana</item>
+        <item>Tarde</item>
+        <item>Noche</item>
+        <item>Personalizado</item>
+    </string-array>
+
+    <string-array name="time_off_types">
+        <item>Vacaciones</item>
+        <item>Ausencias</item>
+        <item>Incapacidad</item>
+        <item>Licencia</item>
+    </string-array>
+
+</resources>
