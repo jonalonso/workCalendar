@@ -83,65 +83,137 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/OverTimefab"
+    <LinearLayout
+        android:id="@+id/OverTimefabContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/add_overtime"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginBottom="@dimen/fab_margin_small"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/TimeOffFab"
-        app:shapeAppearanceOverlay="@style/fab_rounded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_extra"  />
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin_small"
+        app:layout_constraintBottom_toTopOf="@id/TimeOffFabContainer"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/OverTimefabLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_overtime"
+            android:paddingHorizontal="4dp"
+            android:background="@drawable/fab_label_background"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_marginEnd="8dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/OverTimefab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/add_overtime"
+            android:backgroundTint="@color/colorPrimary"
+            app:shapeAppearanceOverlay="@style/fab_rounded"
+            app:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_extra" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/TimeOffFabContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="invisible"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin_small"
+        app:layout_constraintBottom_toTopOf="@id/PaymentFabContainer"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/TimeOffFabLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fab_label_background"
+            android:text="@string/add_time_off"
+            android:paddingHorizontal="4dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_marginEnd="8dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/TimeOffFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/add_time_off"
+            android:backgroundTint="@color/colorPrimary"
+            app:shapeAppearanceOverlay="@style/fab_rounded"
+            app:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_sick" />
+    </LinearLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/TimeOffFab"
+    <LinearLayout
+        android:id="@+id/PaymentFabContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/add_time_off"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginBottom="@dimen/fab_margin_small"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/PaymentFab"
-        app:shapeAppearanceOverlay="@style/fab_rounded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_sick"  />
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin_small"
+        app:layout_constraintBottom_toTopOf="@id/ContractFabContainer"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/PaymentFabLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_payment"
+            android:paddingHorizontal="4dp"
+            android:background="@drawable/fab_label_background"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_marginEnd="8dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/PaymentFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/add_payment"
+            android:backgroundTint="@color/colorPrimary"
+            app:shapeAppearanceOverlay="@style/fab_rounded"
+            app:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_payment" />
+    </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/PaymentFab"
+    <LinearLayout
+        android:id="@+id/ContractFabContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/add_payment"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginBottom="@dimen/fab_margin_small"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/ContractFab"
-        app:shapeAppearanceOverlay="@style/fab_rounded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_payment"  />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ContractFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/add_contract"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:visibility="invisible"
         android:layout_marginEnd="@dimen/fab_margin"
-        android:backgroundTint="@color/colorPrimary"
         android:layout_marginBottom="@dimen/fab_margin_small"
         app:layout_constraintBottom_toTopOf="@id/fab"
-        app:shapeAppearanceOverlay="@style/fab_rounded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_work"  />
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/ContractFabLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_contract"
+            android:background="@drawable/fab_label_background"
+            android:textColor="@android:color/white"
+            android:paddingHorizontal="4dp"
+            android:textSize="20sp"
+            android:layout_marginEnd="8dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/ContractFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/add_contract"
+            android:backgroundTint="@color/colorPrimary"
+            app:shapeAppearanceOverlay="@style/fab_rounded"
+            app:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_work" />
+    </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

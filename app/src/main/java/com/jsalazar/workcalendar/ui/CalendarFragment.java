@@ -121,33 +121,27 @@ public class CalendarFragment extends Fragment {
     }
 
     private void startAnimation() {
-        if(!fabSwitch){
-            binding.ContractFab.startAnimation(toBottom);
-            binding.PaymentFab.startAnimation(toBottom);
-            binding.TimeOffFab.startAnimation(toBottom);
-            binding.OverTimefab.startAnimation(toBottom);
+        if (!fabSwitch) {
+            binding.ContractFabContainer.startAnimation(toBottom);
+            binding.PaymentFabContainer.startAnimation(toBottom);
+            binding.TimeOffFabContainer.startAnimation(toBottom);
+            binding.OverTimefabContainer.startAnimation(toBottom);
             binding.fab.startAnimation(rotateClose);
-        }else{
-            binding.ContractFab.startAnimation(fromBottom);
-            binding.PaymentFab.startAnimation(fromBottom);
-            binding.TimeOffFab.startAnimation(fromBottom);
-            binding.OverTimefab.startAnimation(fromBottom);
+        } else {
+            binding.ContractFabContainer.startAnimation(fromBottom);
+            binding.PaymentFabContainer.startAnimation(fromBottom);
+            binding.TimeOffFabContainer.startAnimation(fromBottom);
+            binding.OverTimefabContainer.startAnimation(fromBottom);
             binding.fab.startAnimation(rotateOpen);
         }
     }
 
     private void setVisibility() {
-        if(!fabSwitch){
-            binding.ContractFab.setVisibility(View.INVISIBLE);
-            binding.PaymentFab.setVisibility(View.INVISIBLE);
-            binding.TimeOffFab.setVisibility(View.INVISIBLE);
-            binding.OverTimefab.setVisibility(View.INVISIBLE);
-        }else{
-            binding.ContractFab.setVisibility(View.VISIBLE);
-            binding.PaymentFab.setVisibility(View.VISIBLE);
-            binding.TimeOffFab.setVisibility(View.VISIBLE);
-            binding.OverTimefab.setVisibility(View.VISIBLE);
-        }
+        int visibility = fabSwitch ? View.VISIBLE : View.INVISIBLE;
+        binding.ContractFabContainer.setVisibility(visibility);
+        binding.PaymentFabContainer.setVisibility(visibility);
+        binding.TimeOffFabContainer.setVisibility(visibility);
+        binding.OverTimefabContainer.setVisibility(visibility);
     }
 
     private void setupCalendarButtons() {
