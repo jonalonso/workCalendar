@@ -104,7 +104,7 @@ public class CalendarFragment extends Fragment {
             fabSwitch = false;
         });
 
-        binding.fab2.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"click2",Toast.LENGTH_SHORT).show());
+        binding.PaymentFab.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"payment",Toast.LENGTH_SHORT).show());
         binding.TimeOffFab.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(CalendarFragment.this)
                     .navigate(R.id.action_CalendarFragment_to_TimeOffFragment);
@@ -123,13 +123,13 @@ public class CalendarFragment extends Fragment {
     private void startAnimation() {
         if(!fabSwitch){
             binding.ContractFab.startAnimation(toBottom);
-            binding.fab2.startAnimation(toBottom);
+            binding.PaymentFab.startAnimation(toBottom);
             binding.TimeOffFab.startAnimation(toBottom);
             binding.OverTimefab.startAnimation(toBottom);
             binding.fab.startAnimation(rotateClose);
         }else{
             binding.ContractFab.startAnimation(fromBottom);
-            binding.fab2.startAnimation(fromBottom);
+            binding.PaymentFab.startAnimation(fromBottom);
             binding.TimeOffFab.startAnimation(fromBottom);
             binding.OverTimefab.startAnimation(fromBottom);
             binding.fab.startAnimation(rotateOpen);
@@ -139,12 +139,12 @@ public class CalendarFragment extends Fragment {
     private void setVisibility() {
         if(!fabSwitch){
             binding.ContractFab.setVisibility(View.INVISIBLE);
-            binding.fab2.setVisibility(View.INVISIBLE);
+            binding.PaymentFab.setVisibility(View.INVISIBLE);
             binding.TimeOffFab.setVisibility(View.INVISIBLE);
             binding.OverTimefab.setVisibility(View.INVISIBLE);
         }else{
             binding.ContractFab.setVisibility(View.VISIBLE);
-            binding.fab2.setVisibility(View.VISIBLE);
+            binding.PaymentFab.setVisibility(View.VISIBLE);
             binding.TimeOffFab.setVisibility(View.VISIBLE);
             binding.OverTimefab.setVisibility(View.VISIBLE);
         }
