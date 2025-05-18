@@ -31,7 +31,8 @@
     <string name="app_settings_title">App Settings</string>
     <string name="afternoon_bonus_hint">Hourly bonus (Afternoon)</string>
     <string name="night_bonus_hint">Hourly bonus (Night)</string>
-
+    <string name="no_contract_exists">There is no contract for the selected date.</string>
+    <string name="overtime_exists_message">An overtime record already exists for this date.</string>
 
 
     <string-array name="shift_options">
@@ -47,4 +48,6 @@
         <item>Sick Leave</item>
         <item>Leave</item>
     </string-array>
+    <string name="overt_time_fragment_label">OverTime</string>
+    <string name="date_hint">Date</string>
 </resources>

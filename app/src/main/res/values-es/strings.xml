@@ -31,12 +31,10 @@
     <string name="app_settings_title">Ajustes de la Aplicación</string>
     <string name="afternoon_bonus_hint">Recargo por hora (Tarde)</string>
     <string name="night_bonus_hint">Recargo por hora (Noche)</string>
-
-
-
-
-
-
+    <string name="overt_time_fragment_label">Extras</string>
+    <string name="date_hint">Fecha</string>
+    <string name="no_contract_exists">No existe un contrato para la fecha seleccionada.</string>
+    <string name="overtime_exists_message">Ya existe un registro de horas extra para esta fecha.</string>
 
 
     <string-array name="shift_options">

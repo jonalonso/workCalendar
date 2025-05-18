@@ -111,7 +111,13 @@ public class CalendarFragment extends Fragment {
             fabSwitch = false;
 
         });
-        binding.OverTimefab.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"extras",Toast.LENGTH_SHORT).show());
+
+        binding.OverTimefab.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(CalendarFragment.this)
+                    .navigate(R.id.action_CalendarFragment_to_OverTimeFragment);
+            fabSwitch = false;
+
+        });
 
 
         getParentFragmentManager().setFragmentResultListener("calendar_updated", this, (requestKey, result) -> {

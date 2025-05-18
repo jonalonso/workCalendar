@@ -9,7 +9,7 @@ import com.jsalazar.workcalendar.database.models.WorkCalendarDataBaseModel;
 public class WorkCalendarDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "WorkCalendar.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public WorkCalendarDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,6 +35,20 @@ public class WorkCalendarDbHelper extends SQLiteOpenHelper {
                     WorkCalendarDataBaseModel.TimeOffEntry.COLUMN_NAME_DESCRIPTION + " TEXT" +
                     ")";
 
+    private static final String SQL_CREATE_OVERTIME =
+            "CREATE TABLE " + WorkCalendarDataBaseModel.OverTimeEntry.TABLE_NAME + " (" +
+                    WorkCalendarDataBaseModel.OverTimeEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    WorkCalendarDataBaseModel.OverTimeEntry.COLUMN_NAME_INITIAL_DATE + " TEXT NOT NULL, " +
+                    WorkCalendarDataBaseModel.OverTimeEntry.COLUMN_NAME_START_TIME + " TEXT, " +
+                    WorkCalendarDataBaseModel.OverTimeEntry.COLUMN_NAME_END_TIME + " TEXT, " +
+                    WorkCalendarDataBaseModel.OverTimeEntry.COLUMN_NAME_DESCRIPTION + " TEXT, " +
+                    WorkCalendarDataBaseModel.OverTimeEntry.COLUMN_NAME_SERVICE_NAME + " TEXT" +
+                    ")";
+
+    private static final String SQL_DELETE_OVERTIME =
+            "DROP TABLE IF EXISTS " + WorkCalendarDataBaseModel.OverTimeEntry.TABLE_NAME;
+
+
     private static final String SQL_DELETE_EVENTS =
             "DROP TABLE IF EXISTS " + WorkCalendarDataBaseModel.ContractEntry.TABLE_NAME;
 
@@ -45,11 +59,13 @@ public class WorkCalendarDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_EVENTS);
         db.execSQL(SQL_CREATE_TIME_OFF);
+        db.execSQL(SQL_CREATE_OVERTIME);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_EVENTS);
         db.execSQL(SQL_DELETE_TIME_OFF);
+        db.execSQL(SQL_DELETE_OVERTIME);
         onCreate(db);
     }
 
