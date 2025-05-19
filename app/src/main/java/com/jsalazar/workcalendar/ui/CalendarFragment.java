@@ -104,21 +104,22 @@ public class CalendarFragment extends Fragment {
             fabSwitch = false;
         });
 
-        binding.PaymentFab.setOnClickListener(view1 -> Toast.makeText(CalendarFragment.this.getContext(),"payment",Toast.LENGTH_SHORT).show());
+        binding.PaymentFab.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(CalendarFragment.this)
+                    .navigate(R.id.action_CalendarFragment_to_PaymentFragment);
+            fabSwitch = false;
+        });
         binding.TimeOffFab.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(CalendarFragment.this)
                     .navigate(R.id.action_CalendarFragment_to_TimeOffFragment);
             fabSwitch = false;
-
         });
 
         binding.OverTimefab.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(CalendarFragment.this)
                     .navigate(R.id.action_CalendarFragment_to_OverTimeFragment);
             fabSwitch = false;
-
         });
-
 
         getParentFragmentManager().setFragmentResultListener("calendar_updated", this, (requestKey, result) -> {
             renderCalendar();

@@ -35,6 +35,7 @@
     <string name="date_hint">Fecha</string>
     <string name="no_contract_exists">No existe un contrato para la fecha seleccionada.</string>
     <string name="overtime_exists_message">Ya existe un registro de horas extra para esta fecha.</string>
+    <string name="payment_fragment_label">Pagos</string>
 
 
     <string-array name="shift_options">

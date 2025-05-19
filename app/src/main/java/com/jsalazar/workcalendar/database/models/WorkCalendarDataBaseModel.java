@@ -31,4 +31,19 @@ public final class WorkCalendarDataBaseModel {
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_SERVICE_NAME = "serviceName";
     }
+
+    public static class PaymentEntry implements BaseColumns {
+        public static final String TABLE_NAME = "payment";
+        public static final String COLUMN_NAME_NET_AMOUNT = "netAmount";       // real
+        public static final String COLUMN_NAME_DATE_CREATED = "dateCreated";   // yyyy-MM-dd HH:mm:ss
+    }
+
+    public static class PaymentDetailEntry implements BaseColumns {
+        public static final String TABLE_NAME = "payment_detail";
+        public static final String COLUMN_NAME_PAYMENT_ID = "paymentId";       // foreign key
+        public static final String COLUMN_NAME_TYPE = "type";
+        public static final String COLUMN_NAME_START_DATE = "startDate";       // yyyy-MM-dd
+        public static final String COLUMN_NAME_END_DATE = "endDate";           // yyyy-MM-dd
+        public static final String COLUMN_NAME_AMOUNT = "amount";              // real
+    }
 }

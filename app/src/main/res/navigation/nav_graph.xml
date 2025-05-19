@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_CalendarFragment_to_OverTimeFragment"
             app:destination="@id/OverTimeFragment" />
+        <action
+            android:id="@+id/action_CalendarFragment_to_PaymentFragment"
+            app:destination="@id/PaymentFragment" />
 
     </fragment>
     <fragment
@@ -68,6 +71,17 @@
 
         <action
             android:id="@+id/action_OverTimeFragment_to_CalendarFragment"
-            app:destination="@id/OverTimeFragment" />
+            app:destination="@id/CalendarFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/PaymentFragment"
+        android:name="com.jsalazar.workcalendar.ui.PaymentFragment"
+        android:label="@string/payment_fragment_label"
+        tools:layout="@layout/fragment_payment">
+
+        <action
+            android:id="@+id/action_PaymentFragment_to_CalendarFragment"
+            app:destination="@id/CalendarFragment" />
     </fragment>
 </navigation>
