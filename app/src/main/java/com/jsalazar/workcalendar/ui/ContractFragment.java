@@ -32,6 +32,7 @@ public class ContractFragment extends Fragment {
     private FragmentContractBinding binding;
     private AlertDialog progressDialog;
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,12 +46,8 @@ public class ContractFragment extends Fragment {
 
         binding.editInitialDate.setOnClickListener(v -> showDatePicker(binding.editInitialDate, requireContext()));
         binding.editEndDate.setOnClickListener(v -> showDatePicker(binding.editEndDate, requireContext()));
-        binding.editStartTime.setOnFocusChangeListener((v, s) -> {
-            if (s) showTimePicker(binding.editStartTime, requireContext());
-        });
-        binding.editEndTime.setOnFocusChangeListener((v, s) -> {
-            if (s) showTimePicker(binding.editEndTime, requireContext());
-        });
+        binding.editStartTime.setOnClickListener(v -> showTimePicker(binding.editStartTime, requireContext()));
+        binding.editEndTime.setOnClickListener(v -> showTimePicker(binding.editEndTime, requireContext()));
 
         setHourFields("06:00", "14:00", false);
         binding.spinnerShift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -126,11 +123,6 @@ public class ContractFragment extends Fragment {
 
         binding.startTimeLayout.setVisibility(visible ? View.VISIBLE : View.GONE);
         binding.endTimeLayout.setVisibility(visible ? View.VISIBLE : View.GONE);
-
-        binding.editStartTime.setFocusable(visible);
-        binding.editStartTime.setFocusableInTouchMode(visible);
-        binding.editEndTime.setFocusable(visible);
-        binding.editEndTime.setFocusableInTouchMode(visible);
     }
 
     private boolean validateInputs(String initialDate, String endDate, String startTime, String endTime, String serviceName, String description) {

@@ -85,4 +85,43 @@ public class ContractRepository {
 
         return contracts;
     }
+
+    public Contract getContractForDate(String date) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String query = "SELECT " +
+                WorkCalendarDataBaseModel.ContractEntry._ID + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_INITIAL_DATE + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_DATE + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_START_TIME + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_TIME + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_SERVICE_NAME + ", " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_DESCRIPTION +
+                " FROM " + WorkCalendarDataBaseModel.ContractEntry.TABLE_NAME +
+                " WHERE ? BETWEEN " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_INITIAL_DATE +
+                " AND " +
+                WorkCalendarDataBaseModel.ContractEntry.COLUMN_NAME_END_DATE +
+                " LIMIT 1";
+
+        Cursor cursor = db.rawQuery(query, new String[]{date});
+
+        Contract contract = null;
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            String initialDate = cursor.getString(1);
+            String endDateDb = cursor.getString(2);
+            String startTime = cursor.getString(3);
+            String endTime = cursor.getString(4);
+            String serviceName = cursor.getString(5);
+            String description = cursor.getString(6);
+
+            contract = new Contract(id, initialDate, endDateDb, startTime, endTime, serviceName, description);
+        }
+
+        cursor.close();
+        db.close();
+        return contract;
+    }
+
 }

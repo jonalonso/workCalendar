@@ -22,11 +22,20 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.jsalazar.workcalendar.R;
 import com.jsalazar.workcalendar.database.repository.ContractRepository;
+import com.jsalazar.workcalendar.database.repository.OverTimeRepository;
+import com.jsalazar.workcalendar.database.repository.PaymentRepository;
+import com.jsalazar.workcalendar.database.repository.TimeOffRepository;
 import com.jsalazar.workcalendar.databinding.FragmentCalendarBinding;
 import com.jsalazar.workcalendar.models.Contract;
+import com.jsalazar.workcalendar.models.DayEvents;
+import com.jsalazar.workcalendar.models.OverTime;
+import com.jsalazar.workcalendar.models.PaymentDetail;
+import com.jsalazar.workcalendar.models.TimeOff;
+import com.jsalazar.workcalendar.ui.adapter.DayEventsAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +52,7 @@ public class CalendarFragment extends Fragment {
     private Contract previousContract = null;
     private boolean usePrimaryColor = true;
 
-    private List<Contract> contracts;
+    private DayEventsAdapter adapter;
 
 
     private Animation rotateOpen = null;
@@ -54,6 +63,13 @@ public class CalendarFragment extends Fragment {
     private Boolean fabSwitch = false;
 
     private TextView currentSelectedDay = null;
+    private List<Object> items  = new ArrayList<>();;
+
+    private ContractRepository contractRepo;
+    private OverTimeRepository overTimeRepository;
+    private TimeOffRepository timeOffRepo;
+    private PaymentRepository paymentRepository;
+
 
     @Override
     public View onCreateView(
@@ -79,6 +95,12 @@ public class CalendarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        contractRepo = new ContractRepository(requireContext());
+        overTimeRepository = new OverTimeRepository(requireContext());
+        timeOffRepo = new TimeOffRepository(requireContext());
+        paymentRepository = new PaymentRepository(requireContext());
+
+
         rotateOpen = AnimationUtils.loadAnimation(this.getContext(), R.anim.rotate_open_anim);
         rotateClose = AnimationUtils.loadAnimation(this.getContext(),R.anim.rotate_close_anim);
         fromBottom = AnimationUtils.loadAnimation(this.getContext(),R.anim.from_bottom_anim);
@@ -87,6 +109,11 @@ public class CalendarFragment extends Fragment {
         binding.TextDate.setText(getString(R.string.events_of_day, formatDate()));
         calendarGrid = binding.calendarGrid;
         txtMonthYear = binding.txtMonthYear;
+
+        contractRepo = new ContractRepository(requireContext());
+        overTimeRepository = new OverTimeRepository(requireContext());
+        timeOffRepo = new TimeOffRepository(requireContext());
+        paymentRepository = new PaymentRepository(requireContext());
 
         setupCalendarButtons();
         renderCalendar();
@@ -120,6 +147,26 @@ public class CalendarFragment extends Fragment {
                     .navigate(R.id.action_CalendarFragment_to_OverTimeFragment);
             fabSwitch = false;
         });
+
+        adapter = new DayEventsAdapter(requireContext(), items, item -> {
+            // manejar eliminación
+            if (item instanceof PaymentDetail) {
+                //paymentDetailViewModel.delete((PaymentDetail) item);
+            } else if (item instanceof TimeOff) {
+                //timeOffViewModel.delete((TimeOff) item);
+            } else if (item instanceof OverTime) {
+                //overTimeViewModel.delete((OverTime) item);
+            } else if (item instanceof Contract) {
+                //contractViewModel.delete((Contract) item);
+            }
+            if(adapter != null){
+                adapter.remove(item);
+                adapter.notifyDataSetChanged();
+            }
+
+        });
+
+        binding.eventList.setAdapter(adapter);
 
         getParentFragmentManager().setFragmentResultListener("calendar_updated", this, (requestKey, result) -> {
             renderCalendar();
@@ -197,8 +244,7 @@ public class CalendarFragment extends Fragment {
         String startOfMonth = String.format(Locale.getDefault(), "%04d-%02d-01", year, month + 1);
         String endOfMonth = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, maxDay);
 
-        ContractRepository repo = new ContractRepository(requireContext());
-        contracts = repo.getContractsForDateRange(startOfMonth, endOfMonth);
+        List<Contract> contracts = contractRepo.getContractsForDateRange(startOfMonth, endOfMonth);
 
 
         for (int day = 1; day <= maxDay; day++) {
@@ -247,6 +293,7 @@ public class CalendarFragment extends Fragment {
                 tv.setTypeface(null, Typeface.BOLD);
                 currentSelectedDay = tv;
                 binding.TextDate.setText(getString(R.string.events_of_day, formatDate()));
+                loadDayEvents(selectedDate);
             });
 
             View eventIndicator = new View(getContext());
@@ -275,6 +322,7 @@ public class CalendarFragment extends Fragment {
             }
             calendarGrid.addView(container);
         }
+        loadDayEvents(selectedDate);
     }
 
     private TextView createHeaderText(String day) {
@@ -313,7 +361,7 @@ public class CalendarFragment extends Fragment {
     }
 
     private FrameLayout createContainer() {
-        FrameLayout container = new FrameLayout(getContext());
+        FrameLayout container = new FrameLayout(requireContext());
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.width = 100;
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -332,6 +380,22 @@ public class CalendarFragment extends Fragment {
         ));
         container.setOrientation(LinearLayout.VERTICAL);
         return container;
+    }
+
+    private void loadDayEvents(Calendar date) {
+        String selectedDateStr = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date.getTime());
+
+        Contract contract = contractRepo.getContractForDate(selectedDateStr);
+        List<OverTime> overTimeList = overTimeRepository.getOverTimeForDate(selectedDateStr);
+        OverTime overTime = overTimeList.isEmpty() ? null : overTimeList.get(0);
+        List<TimeOff> timeOffList = timeOffRepo.getTimeOffForDateRange(selectedDateStr, selectedDateStr);
+        List<PaymentDetail> paymentDetails = paymentRepository.getPaymentDetailsForDate(selectedDateStr);
+
+        DayEvents dayEvents = new DayEvents(contract, overTime, paymentDetails, timeOffList);
+        items = DayEventsAdapter.flattenDayEvents(dayEvents);
+        if (adapter != null) {
+            adapter.updateItems(items);
+        }
     }
 
 

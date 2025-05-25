@@ -36,6 +36,25 @@
     <string name="no_contract_exists">No existe un contrato para la fecha seleccionada.</string>
     <string name="overtime_exists_message">Ya existe un registro de horas extra para esta fecha.</string>
     <string name="payment_fragment_label">Pagos</string>
+    <string name="detail_type">Concepto</string>
+    <string name="detail_amount">Monto</string>
+    <string name="add_detail">Agregar detalle del pago</string>
+    <string name="payment_date">Fecha de pago</string>
+    <string name="delete_detail">Eliminar detalle</string>
+    <string name="detail_date_single">Fecha: %1$s</string>
+    <string name="detail_date_range">Desde: %1$s hasta %2$s</string>
+    <string name="detail_amount_format">Monto: %1$.2f</string>
+    <string name="error_amount_required">El monto es obligatorio</string>
+    <string name="error_amount_positive">El monto debe ser mayor a 0</string>
+    <string name="error_both_dates_required">Ambas fechas deben estar llenas o vacías</string>
+    <string name="error_end_date_after_start">La fecha de fin debe ser igual o posterior a la de inicio</string>
+    <string name="error_duplicate_type">Este tipo ya fue agregado</string>
+    <string name="error_date_required">La fecha de pago es obligatoria</string>
+    <string name="error_amount_invalid">Monto inválido</string>
+    <string name="error_no_details">Debe agregar al menos un detalle de pago</string>
+    <string name="conceptos">Conceptos</string>
+    <string name="delete">Eliminar</string>
+    <string name="event_icon">Icono del evento</string>
 
 
     <string-array name="shift_options">
@@ -51,5 +70,17 @@
         <item>Incapacidad</item>
         <item>Licencia</item>
     </string-array>
+    <string-array name="payment_detail_types">
+        <item>Salario Base</item>
+        <item>Recargo Nocturno</item>
+        <item>Recargo Diurno</item>
+        <item>Días Feriados</item>
+        <item>Extras</item>
+        <item>Vacaciones</item>
+        <item>Complemento Salarial Profesional de Enfermería</item>
+        <item>Antigüedad</item>
+    </string-array>
+
+
 
 </resources>

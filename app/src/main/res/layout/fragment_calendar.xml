@@ -113,7 +113,7 @@
             android:backgroundTint="@color/colorPrimary"
             app:shapeAppearanceOverlay="@style/fab_rounded"
             app:tint="@android:color/white"
-            app:srcCompat="@drawable/ic_extra" />
+            app:srcCompat="@drawable/ic_overtime" />
     </LinearLayout>
 
     <LinearLayout
@@ -147,7 +147,7 @@
             android:backgroundTint="@color/colorPrimary"
             app:shapeAppearanceOverlay="@style/fab_rounded"
             app:tint="@android:color/white"
-            app:srcCompat="@drawable/ic_sick" />
+            app:srcCompat="@drawable/ic_time_off" />
     </LinearLayout>
 
 
@@ -212,7 +212,7 @@
             android:backgroundTint="@color/colorPrimary"
             app:shapeAppearanceOverlay="@style/fab_rounded"
             app:tint="@android:color/white"
-            app:srcCompat="@drawable/ic_work" />
+            app:srcCompat="@drawable/ic_contract" />
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

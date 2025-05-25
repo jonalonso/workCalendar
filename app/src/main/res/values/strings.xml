@@ -48,8 +48,41 @@
         <item>Sick Leave</item>
         <item>Leave</item>
     </string-array>
+
+    <string-array name="payment_detail_types">
+        <item>Base Salary</item>
+        <item>Night Bonus</item>
+        <item>Day Bonus</item>
+        <item>Holidays</item>
+        <item>Overtime</item>
+        <item>Vacation</item>
+        <item>Nursing Professional Salary Complement</item>
+        <item>Seniority</item>
+    </string-array>
+
+
     <string name="overt_time_fragment_label">OverTime</string>
     <string name="date_hint">Date</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="payment_fragment_label">Payment</string>
+    <string name="detail_type">Type</string>
+    <string name="detail_amount">Amount</string>
+    <string name="add_detail">add payment detail</string>
+    <string name="payment_date">Payment Date</string>
+    <string name="delete_detail">Delete detail</string>
+    <string name="detail_date_single">Date: %1$s</string>
+    <string name="detail_date_range">From: %1$s to %2$s</string>
+    <string name="detail_amount_format">Amount: %1$.2f</string>
+    <string name="error_amount_required">Amount is required</string>
+    <string name="error_amount_positive">Amount must be greater than 0</string>
+    <string name="error_both_dates_required">Start and end date must both be filled or both empty</string>
+    <string name="error_end_date_after_start">End date must be after or equal to start date</string>
+    <string name="error_duplicate_type">This type has already been added</string>
+    <string name="error_date_required">Payment date is required</string>
+    <string name="error_amount_invalid">Invalid amount</string>
+    <string name="error_no_details">You must add at least one payment detail</string>
+    <string name="conceptos">Details</string>
+    <string name="delete">Delete</string>
+    <string name="event_icon">Event icon</string>
+
 </resources>
