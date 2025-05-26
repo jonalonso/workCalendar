@@ -19,6 +19,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jsalazar.workcalendar.R;
 import com.jsalazar.workcalendar.database.repository.ContractRepository;
@@ -63,7 +66,7 @@ public class CalendarFragment extends Fragment {
     private Boolean fabSwitch = false;
 
     private TextView currentSelectedDay = null;
-    private List<Object> items  = new ArrayList<>();;
+    private List<Object> items  = new ArrayList<>();
 
     private ContractRepository contractRepo;
     private OverTimeRepository overTimeRepository;
@@ -115,8 +118,7 @@ public class CalendarFragment extends Fragment {
         timeOffRepo = new TimeOffRepository(requireContext());
         paymentRepository = new PaymentRepository(requireContext());
 
-        setupCalendarButtons();
-        renderCalendar();
+
 
         binding.fab.setOnClickListener(view1 -> {
             fabSwitch = !fabSwitch;
@@ -148,25 +150,40 @@ public class CalendarFragment extends Fragment {
             fabSwitch = false;
         });
 
-        adapter = new DayEventsAdapter(requireContext(), items, item -> {
-            // manejar eliminación
-            if (item instanceof PaymentDetail) {
-                //paymentDetailViewModel.delete((PaymentDetail) item);
-            } else if (item instanceof TimeOff) {
-                //timeOffViewModel.delete((TimeOff) item);
-            } else if (item instanceof OverTime) {
-                //overTimeViewModel.delete((OverTime) item);
-            } else if (item instanceof Contract) {
-                //contractViewModel.delete((Contract) item);
+        adapter = new DayEventsAdapter();
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false; // No movemos elementos, solo swipe
             }
-            if(adapter != null){
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                System.out.println(direction);
+                int position = viewHolder.getAdapterPosition();
+                Object item = adapter.getItemAt(position);
+
+                if (item instanceof PaymentDetail) {
+                    // paymentDetailViewModel.delete((PaymentDetail) item);
+                } else if (item instanceof TimeOff) {
+                    // timeOffViewModel.delete((TimeOff) item);
+                } else if (item instanceof OverTime) {
+                    // overTimeViewModel.delete((OverTime) item);
+                } else if (item instanceof Contract) {
+                    // contractViewModel.delete((Contract) item);
+                }
+
                 adapter.remove(item);
-                adapter.notifyDataSetChanged();
             }
+        };
 
-        });
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(binding.eventList);
 
+        binding.eventList.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.eventList.setAdapter(adapter);
+        setupCalendarButtons();
+        renderCalendar();
 
         getParentFragmentManager().setFragmentResultListener("calendar_updated", this, (requestKey, result) -> {
             renderCalendar();
@@ -295,7 +312,6 @@ public class CalendarFragment extends Fragment {
                 binding.TextDate.setText(getString(R.string.events_of_day, formatDate()));
                 loadDayEvents(selectedDate);
             });
-
             View eventIndicator = new View(getContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()),
@@ -384,7 +400,6 @@ public class CalendarFragment extends Fragment {
 
     private void loadDayEvents(Calendar date) {
         String selectedDateStr = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date.getTime());
-
         Contract contract = contractRepo.getContractForDate(selectedDateStr);
         List<OverTime> overTimeList = overTimeRepository.getOverTimeForDate(selectedDateStr);
         OverTime overTime = overTimeList.isEmpty() ? null : overTimeList.get(0);
@@ -393,9 +408,7 @@ public class CalendarFragment extends Fragment {
 
         DayEvents dayEvents = new DayEvents(contract, overTime, paymentDetails, timeOffList);
         items = DayEventsAdapter.flattenDayEvents(dayEvents);
-        if (adapter != null) {
-            adapter.updateItems(items);
-        }
+        adapter.updateItems(items);
     }
 
 

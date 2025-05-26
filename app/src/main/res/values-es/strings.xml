@@ -6,7 +6,7 @@
     <string name="contract_fragment_label">Nombramientos</string>
     <string name="time_off_fragment_label">Tiempo Libre</string>
     <string name="events_of_day">Eventos del día %1$s</string>
-    <string name="contract_exists_message">Ya existe un contrato para estas fechas.</string>
+    <string name="contract_exists_message">Ya existe un nombramiento para estas fechas.</string>
     <string name="field_required_error">Requerido</string>
     <string name="end_date_after_start_error">Debe ser igual o posterior a la fecha de inicio</string>
     <string name="invalid_date_format_error">Formato de fecha inválido</string>
@@ -33,7 +33,7 @@
     <string name="night_bonus_hint">Recargo por hora (Noche)</string>
     <string name="overt_time_fragment_label">Extras</string>
     <string name="date_hint">Fecha</string>
-    <string name="no_contract_exists">No existe un contrato para la fecha seleccionada.</string>
+    <string name="no_contract_exists">No existe un nombramiento para la fecha seleccionada.</string>
     <string name="overtime_exists_message">Ya existe un registro de horas extra para esta fecha.</string>
     <string name="payment_fragment_label">Pagos</string>
     <string name="detail_type">Concepto</string>

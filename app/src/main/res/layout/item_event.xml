@@ -2,37 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:background="#DffDDD"
+    android:layout_height="52dp">
+
+    <View
+        android:id="@+id/left_indicator"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/holo_red_dark" />
+
+    <View
+        android:id="@+id/right_indicator"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/holo_red_dark" />
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/left_indicator"
         android:layout_marginEnd="12dp"
-        android:contentDescription="@string/event_icon"
-        android:src="@drawable/ic_delete"
-        app:tint="@color/colorPrimary" />
-
-    <ImageButton
-        android:id="@+id/deleteButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
+        android:layout_marginStart="12dp"
         android:layout_centerVertical="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_delete"
-        android:contentDescription="@string/delete"
-        app:tint="@color/colorError" />
+        android:contentDescription="@string/event_icon"
+        app:tint="@color/colorPrimary" />
 
     <LinearLayout
         android:id="@+id/textContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/icon"
-        android:layout_toStartOf="@id/deleteButton"
+        android:layout_toStartOf="@id/right_indicator"
         android:layout_centerVertical="true"
         android:orientation="vertical">
 

@@ -1,11 +1,12 @@
 package com.jsalazar.workcalendar.ui.adapter;
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jsalazar.workcalendar.R;
 import com.jsalazar.workcalendar.models.*;
@@ -13,30 +14,20 @@ import com.jsalazar.workcalendar.models.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class DayEventsAdapter extends ArrayAdapter<Object> {
+public class DayEventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_CONTRACT = 0;
     private static final int TYPE_OVERTIME = 1;
     private static final int TYPE_PAYMENT_DETAIL = 2;
     private static final int TYPE_TIME_OFF = 3;
+    private final List<Object> items = new ArrayList<>();
 
-    private final LayoutInflater inflater;
-    private final DeleteListener deleteListener;
-
-    public interface DeleteListener {
-        void onDelete(Object item);
-    }
-
-    public DayEventsAdapter(Context context, List<Object> events, DeleteListener deleteListener) {
-        super(context, 0, events);
-        this.inflater = LayoutInflater.from(context);
-        this.deleteListener = deleteListener;
+    public DayEventsAdapter() {
     }
 
     @Override
     public int getItemViewType(int position) {
-        Object item = getItem(position);
+        Object item = items.get(position);
         if (item instanceof Contract) return TYPE_CONTRACT;
         if (item instanceof OverTime) return TYPE_OVERTIME;
         if (item instanceof PaymentDetail) return TYPE_PAYMENT_DETAIL;
@@ -45,58 +36,39 @@ public class DayEventsAdapter extends ArrayAdapter<Object> {
     }
 
     @Override
-    public int getViewTypeCount() {
-        return 4;
+    public int getItemCount() {
+        return items.size();
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        final Object item = getItem(position);
-        convertView = inflater.inflate(R.layout.item_event, parent, false);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+        return new EventViewHolder(view);
+    }
 
-        TextView title = convertView.findViewById(R.id.title);
-        TextView subtitle = convertView.findViewById(R.id.subtitle);
-        ImageView icon = convertView.findViewById(R.id.icon);
-        ImageButton deleteButton = convertView.findViewById(R.id.deleteButton);
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Object item = items.get(position);
+        ((EventViewHolder) holder).bind(item, getItemViewType(position));
+    }
 
-        switch (getItemViewType(position)) {
-            case TYPE_CONTRACT:
-                Contract c = (Contract) item;
-                title.setText(c.serviceName);
-                subtitle.setText(c.description);
-                icon.setImageResource(R.drawable.ic_contract);
-                break;
+    public Object getItemAt(int position) {
+        return items.get(position);
+    }
 
-            case TYPE_OVERTIME:
-                OverTime ot = (OverTime) item;
-                title.setText(ot.serviceName);
-                subtitle.setText(ot.description);
-                icon.setImageResource(R.drawable.ic_overtime);
-                break;
-
-            case TYPE_PAYMENT_DETAIL:
-                PaymentDetail pd = (PaymentDetail) item;
-                title.setText(pd.type);
-                subtitle.setText(String.format("$ %.2f", pd.amount));
-                icon.setImageResource(R.drawable.ic_payment);
-                break;
-
-            case TYPE_TIME_OFF:
-                TimeOff to = (TimeOff) item;
-                title.setText(to.type);
-                subtitle.setText(to.description);
-                icon.setImageResource(R.drawable.ic_time_off);
-                break;
+    public void remove(Object item) {
+        int index = items.indexOf(item);
+        if (index != -1) {
+            items.remove(index);
+            notifyItemRemoved(index);
         }
+    }
 
-        deleteButton.setOnClickListener(v -> {
-            if (deleteListener != null) {
-                deleteListener.onDelete(item);
-            }
-        });
-
-        return convertView;
+    public void updateItems(List<Object> newItems) {
+        items.clear();
+        items.addAll(newItems);
+        notifyDataSetChanged();
     }
 
     public static List<Object> flattenDayEvents(DayEvents events) {
@@ -108,10 +80,45 @@ public class DayEventsAdapter extends ArrayAdapter<Object> {
         return list;
     }
 
-    public void updateItems(List<Object> newItems) {
-        clear();
-        addAll(newItems);
-        notifyDataSetChanged();
-    }
+    class EventViewHolder extends RecyclerView.ViewHolder {
+        private final TextView title;
+        private final TextView subtitle;
+        private final ImageView icon;
 
+        public EventViewHolder(@NonNull View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.title);
+            subtitle = itemView.findViewById(R.id.subtitle);
+            icon = itemView.findViewById(R.id.icon);
+        }
+
+        public void bind(Object item, int viewType) {
+            switch (viewType) {
+                case TYPE_CONTRACT:
+                    Contract c = (Contract) item;
+                    title.setText(c.serviceName);
+                    subtitle.setText(c.description);
+                    icon.setImageResource(R.drawable.ic_contract);
+                    break;
+                case TYPE_OVERTIME:
+                    OverTime ot = (OverTime) item;
+                    title.setText(ot.serviceName);
+                    subtitle.setText(ot.description);
+                    icon.setImageResource(R.drawable.ic_overtime);
+                    break;
+                case TYPE_PAYMENT_DETAIL:
+                    PaymentDetail pd = (PaymentDetail) item;
+                    title.setText(pd.type);
+                    subtitle.setText(String.format("$ %.2f", pd.amount));
+                    icon.setImageResource(R.drawable.ic_payment);
+                    break;
+                case TYPE_TIME_OFF:
+                    TimeOff to = (TimeOff) item;
+                    title.setText(to.type);
+                    subtitle.setText(to.description);
+                    icon.setImageResource(R.drawable.ic_time_off);
+                    break;
+            }
+        }
+    }
 }

@@ -72,16 +72,17 @@
         app:layout_constraintTop_toBottomOf="@id/calendarContainer"
         app:layout_constraintStart_toStartOf="parent"
     />
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventList"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:paddingHorizontal="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_marginBottom="16dp"
+        android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/TextDate"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@android:color/holo_red_dark"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <LinearLayout
         android:id="@+id/OverTimefabContainer"
@@ -221,7 +222,7 @@
         android:contentDescription="@string/show_more_actions"
         android:layout_marginEnd="@dimen/fab_margin"
         android:backgroundTint="@color/colorPrimary"
-        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
         app:shapeAppearanceOverlay="@style/fab_rounded"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
